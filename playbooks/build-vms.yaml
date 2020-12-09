@@ -26,10 +26,11 @@
   roles:
     - { role: haproxy, tags: [ 'haproxy' ] }
 
-
-
-
 - name: install and configure tftp and dhcpd
+  hosts: tftpd,dhcpd
+  roles:
+    - { role: srv-tftpd, tags: [ 'tftpd' ] }
+    - { role: srv-dhcpd, tags: [ 'dhcpd' ] }
 
 - name: deploy bootstrap MV
 
