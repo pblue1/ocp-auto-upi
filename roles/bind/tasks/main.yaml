@@ -19,21 +19,10 @@
     src: named.conf
     dest: /etc/named.conf
 
-- name: append ocp and rev zones
-  shell: |
-  "cat <<EOF>> /etc/named.rfc1912.zones
-  zone "ocp.example.com" IN {
-          type master;
-          file "ocp.example.com.zone";
-          allow-update { none; };
-  };
-
-  zone "133.168.192.in-addr.arpa" IN {
-          type master;
-          file "133.168.192.in-addr.arpa.zone";
-          allow-update { none; };
-  };
-  EOF"
+- name: copy named.ocp.zone.conf
+  copy:
+    src: named.ocp.zone.conf
+    dest: /etc/named.ocp.zone.conf
 
 - name: set permission a zone files
   file:
