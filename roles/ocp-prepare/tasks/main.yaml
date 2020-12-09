@@ -47,13 +47,22 @@
     src: install-config.yaml.j2
     dest: "{{ ocp_work_dir }}/install_dir/install-config.yaml"
 
-- name: openshift ignition config
-  command: "{{ ocp_work_dir }}/openshift-install create ignition-configs --dir={{ ocp_work_dir }}/install_dir"
+- name: openshift ignition manifests
+  command: "{{ ocp_work_dir }}/openshift-install create manifests --dir={{ ocp_work_dir }}/install_dir"
 
-- name: create pull_secret as a file
-  copy:
-    content: "{{ pull_sec }}"
-    dest: "{{ ocp_work_dir }}/ocp4_pull_secret"
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
