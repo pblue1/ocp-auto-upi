@@ -14,3 +14,23 @@
   hosts: vms
   roles:
     - { role: ocp-prepare, tags: ['prepare' ] }
+    - { role: ocp-prepare-config, tags: ['prepare-config' ]}
+
+- name: install a haproxy
+  hosts: haproxy 
+  roles:
+    - { role: haproxy, tags: [ 'haproxy' ] }
+
+- name: install a dns
+  hosts: dns
+  roles:
+    - { role: bind, tags: [ 'bind' ] }
+
+
+- name: install and configure tftp and dhcpd
+
+- name: deploy bootstrap MV
+
+- name: deploy master node 1/2/3
+
+- name: deploy workder node 1/2

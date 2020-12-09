@@ -10,7 +10,7 @@
 
 - name: set selinux port
   seport:
-    ports: {{ item }}
+    ports: "{{ item }}"
     proto: tcp
     setype: ssh_port_t
     state: present
@@ -20,7 +20,7 @@
 
 - name: set firewalld port
   firewalld:
-    port: {{ item }}
+    port: "{{ item }}"
     permanent: true
     state: enabled
   loop:

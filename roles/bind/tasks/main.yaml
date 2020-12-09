@@ -21,7 +21,7 @@
 
 - name: append ocp and rev zones
   shell: |
-  cat <<EOF>> /etc/named.rfc1912.zones
+  "cat <<EOF>> /etc/named.rfc1912.zones
   zone "ocp.example.com" IN {
           type master;
           file "ocp.example.com.zone";
@@ -33,7 +33,7 @@
           file "133.168.192.in-addr.arpa.zone";
           allow-update { none; };
   };
-  EOF
+  EOF"
 
 - name: set permission a zone files
   file:
