@@ -24,7 +24,7 @@
 - name: install a dns
   hosts: dns
   roles:
-    - { role: bind, tags: [ 'bind' ] }
+    - { role: bind, tags: [ 'dns' ] }
 
 
 - name: install and configure tftp and dhcpd
