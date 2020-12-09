@@ -1,0 +1,61 @@
+- name: mkdir a install_dir 
+  file:
+    path: "{{ ocp_work_dir }}/{{ item }}"
+    state: directory
+    recurse: yes
+  loop:
+    - install_dir
+    - rhcos-install
+
+- name: RHCOS treeinfo template
+  template:
+    src: treeinfo.j2
+    dest: "{{ ocp_work_dir }}/rhcos-install"
+
+- name: RHCOS metal image download
+  copy:
+    src: "{{ item.srcimg }}"
+    dest: "{{ ocp_work_dir }}/rhcos-install/{{ item.destimg }}"
+  loop:
+    - { srcimg: rhcos-installer-kernel-x86_64, destimg: 'vmlinuz' }
+    - { srcimg: rhcos-installer-initramfs.x86_64.img, destimg: 'initramfs.img'}
+    - { srcimg: rhcos-metal.x86_64.raw.gz, destimg: 'rhcos-metal.x86_64.raw.gz'}
+
+- name: OCP client and installer copy
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ocp_work_dir }}"
+  loop:
+    - openshift-client-linux.tar.gz
+    - openshift-install-linux.tar.gz
+
+- name: unarchive openshift client and installer
+  unarchive:
+    src: "{{ ocp_work_dir }}/{{ item }}"
+    dest: "{{ ocp_work_dir }}"
+  loop:
+    - openshift-client-linux.tar.gz
+    - openshift-install-linux.tar.gz
+
+- name: SSH public key read
+  slurp:
+    src: "{{ ansible_env.HOME }}/.ssh/id_rsa.pub"
+  register: ocp_public_key
+
+- name: Generate to the OCP install-config.yaml
+  template:
+    src: install-config.yaml.j2
+    dest: "{{ ocp_work_dir }}/install_dir/install-config.yaml"
+
+- name: openshift ignition config
+  command: "{{ ocp_work_dir }}/openshift-install create ignition-configs --dir={{ ocp_work_dir }}/install_dir"
+
+- name: create pull_secret as a file
+  copy:
+    content: "{{ pull_sec }}"
+    dest: "{{ ocp_work_dir }}/ocp4_pull_secret"
+
+
+
+
+

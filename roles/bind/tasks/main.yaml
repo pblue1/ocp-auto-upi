@@ -1,0 +1,52 @@
+- name: set firewalld
+  firewalld:
+    service: "{{ item }}"
+    state: enabled
+    permanent: true
+  loop:
+    - dns
+    
+- name: copy 133.168.192.in and example.com.zone
+  copy:
+    src: "{{ item }}"
+    dest: /var/named/{{ item }}
+  loop:
+    - example.com.zone
+    - 133.168.192.in-addr.arpa.zone
+ 
+- name: rfc1912.zones
+  copy:
+    src: named.conf
+    dest: /etc/named.conf
+
+- name: append ocp and rev zones
+  shell: |
+  cat <<EOF>> /etc/named.rfc1912.zones
+  zone "ocp.example.com" IN {
+          type master;
+          file "ocp.example.com.zone";
+          allow-update { none; };
+  };
+
+  zone "133.168.192.in-addr.arpa" IN {
+          type master;
+          file "133.168.192.in-addr.arpa.zone";
+          allow-update { none; };
+  };
+  EOF
+
+- name: set permission a zone files
+  file:
+    mode: 0644
+    path: "{{ item }}"
+    group: named
+    owner: root
+  loop:
+    - example.com.zone
+    - 133.168.192.in-addr.arpa.zone
+
+- name: set service 
+  service:
+    name: named
+    state: started
+    enabled: yes

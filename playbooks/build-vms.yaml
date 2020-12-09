@@ -1,0 +1,16 @@
+- name: build VMs haproxy and utility
+  hosts: vms
+  roles:
+    - { role: vm-haproxy, tags: ['vm-haproxy'] }
+    - { role: vm-utility, tags: ['vm-utility'] }
+    - { role: vm-custom, tags: ['vm-custom'] }
+
+- name: start VMs haproxy and utility
+  hosts: vms
+  roles:
+    - { role: vm-start, tags: [ 'vm-start' ] }
+
+- name: prepare ocp installer
+  hosts: vms
+  roles:
+    - { role: ocp-prepare, tags: ['prepare' ] }
