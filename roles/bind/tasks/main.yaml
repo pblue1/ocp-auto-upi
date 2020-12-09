@@ -11,7 +11,7 @@
     src: "{{ item }}"
     dest: /var/named/{{ item }}
   loop:
-    - example.com.zone
+    - ocp.example.com.zone
     - 133.168.192.in-addr.arpa.zone
  
 - name: rfc1912.zones
@@ -27,12 +27,12 @@
 - name: set permission a zone files
   file:
     mode: 0644
-    path: "{{ item }}"
+    path: /var/named/{{ item }}
     group: named
     owner: root
   loop:
-    - example.com.zone
-    - 133.168.192.in-addr.arpa.zone
+    - "ocp.example.com.zone"
+    - "133.168.192.in-addr.arpa.zone"
 
 - name: set service 
   service:

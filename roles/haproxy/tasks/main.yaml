@@ -8,15 +8,15 @@
     src: haproxy.cfg
     dest: /etc/haproxy/haproxy.cfg
 
-- name: set selinux port
-  seport:
-    ports: "{{ item }}"
-    proto: tcp
-    setype: ssh_port_t
-    state: present
-  loop:
-    - 6443
-    - 22623
+#- name: set selinux port
+#  seport:
+#    ports: "{{ item }}"
+#    proto: tcp
+#    setype: http_port_t
+#    state: present
+#  loop:
+#    - 6443
+#    - 22623
 
 - name: set firewalld port
   firewalld:
@@ -31,6 +31,6 @@
 - name: start and enable haproxy
   service:
     name: haproxy
-    state: start
+    state: started
     enabled: yes
 

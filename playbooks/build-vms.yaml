@@ -16,15 +16,17 @@
     - { role: ocp-prepare, tags: ['prepare' ] }
     - { role: ocp-prepare-config, tags: ['prepare-config' ]}
 
+- name: install a dns
+  hosts: dns
+  roles:
+    - { role: bind, tags: [ 'dns' ] }
+
 - name: install a haproxy
   hosts: haproxy 
   roles:
     - { role: haproxy, tags: [ 'haproxy' ] }
 
-- name: install a dns
-  hosts: dns
-  roles:
-    - { role: bind, tags: [ 'dns' ] }
+
 
 
 - name: install and configure tftp and dhcpd
