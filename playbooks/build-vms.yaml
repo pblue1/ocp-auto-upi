@@ -44,12 +44,26 @@
   roles: 
     - { role: deploy-bootstrap, tags: [ 'bootstrap' ] }
 
+# Baremetal
+#
+## ---------------------------------------------------------- ##
+#
+# Virtual Install
+
 - name: deploy master node 1/2/3
   hosts: vms
   roles: 
-    - { role: deploy-master, tags: [ 'master' ] }
+    - { role: deploy-master, tags: [ 'master' ], when: virtual | bool }
 
 - name: deploy workder node 1/2
   hosts: vms
   roles: 
-    - { role: deploy-node, tags: [ 'node' ] }
+    - { role: deploy-node, tags: [ 'node' ], when: virtual | bool }
+
+- name: post setup
+  hosts: utility
+  roles:
+    - { role: post-setup, tags: [ 'postsetup' ], when: virtual | bool }
+  environment:
+    KUBECONFIG: /root/kubeconfig
+    PATH: '{{ ansible_env.PATH }}:/root/'
