@@ -23,10 +23,10 @@
 - name: create the pull_secret as file
   copy:
     content: "{{ pull_sec }}"
-    dest: /tmp/ocp4_pull_secret_json"
+    dest: /tmp/ocp4_pull_secret.json
 
 - name: convert to the pull secret by jq
-  shell: cat /tmp/ocp4_pull_secret | jq .  > /tmp/pull_secret.json
+  shell: cat /tmp/ocp4_pull_secret.json | jq .  > /tmp/pull_secret.json
 
 - name: copy oc command to image mirror server
   copy:
