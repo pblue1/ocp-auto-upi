@@ -1,9 +1,10 @@
 - name: build VMs haproxy and utility
   hosts: vms
   roles:
-    - { role: vm-haproxy, tags: ['vm-haproxy'] }
-    - { role: vm-utility, tags: ['vm-utility'] }
-    - { role: vm-custom, tags: ['vm-custom'] }
+    - { role: vm-prepare, tags: [ 'vm-prepare' ] }
+    - { role: vm-haproxy, tags: [ 'vm-haproxy'] }
+    - { role: vm-utility, tags: [ 'vm-utility'] }
+    - { role: vm-custom, tags: [ 'vm-custom'] }
 
 - name: start VMs haproxy and utility
   hosts: vms
@@ -13,8 +14,8 @@
 - name: prepare ocp installer
   hosts: vms
   roles:
-    - { role: ocp-prepare, tags: ['prepare' ] }
-    - { role: ocp-prepare-config, tags: ['prepare-config' ]}
+
+    - { role: ocp-prepare-config, tags: ['ocp-prepare-config' ]}
 
 - name: install a dns
   hosts: dns
@@ -49,3 +50,6 @@
     - { role: deploy-master, tags: [ 'master' ] }
 
 - name: deploy workder node 1/2
+  hosts: vms
+  roles: 
+    - { role: deploy-node, tags: [ 'node' ] }

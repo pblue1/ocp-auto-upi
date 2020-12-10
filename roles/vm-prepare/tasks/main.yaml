@@ -7,6 +7,14 @@
     - install_dir
     - rhcos-install
 
+- name: copy a kickstart file
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ocp_work_dir }}"
+  loop:
+    - haproxy.ks
+    - utility.ks
+
 - name: RHCOS treeinfo template
   template:
     src: treeinfo.j2
