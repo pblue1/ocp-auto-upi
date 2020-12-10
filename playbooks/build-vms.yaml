@@ -44,5 +44,8 @@
     - { role: deploy-bootstrap, tags: [ 'bootstrap' ] }
 
 - name: deploy master node 1/2/3
+  hosts: vms
+  roles: 
+    - { role: deploy-master, tags: [ 'master' ] }
 
 - name: deploy workder node 1/2
