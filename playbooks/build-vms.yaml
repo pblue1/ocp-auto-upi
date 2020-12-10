@@ -36,10 +36,12 @@
   hosts: registry
   roles:
     - { role: srv-podman, tags: [ 'podman' ] }
-    - { role: srv-imagemirror, tags: [ 'imagemirror' ]}
-
+    - { role: srv-imagemirror, tags: [ 'imagemirror' ] }
 
 - name: deploy bootstrap MV
+  hosts: vms
+  roles: 
+    - { role: deploy-bootstrap, tags: [ 'bootstrap' ] }
 
 - name: deploy master node 1/2/3
 
