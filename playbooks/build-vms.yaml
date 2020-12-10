@@ -32,6 +32,13 @@
     - { role: srv-tftpd, tags: [ 'tftpd' ] }
     - { role: srv-dhcpd, tags: [ 'dhcpd' ] }
 
+- name: install the podman and docker registry server
+  hosts: registry
+  roles:
+    - { role: srv-podman, tags: [ 'podman' ] }
+    - { role: srv-imagemirror, tags: [ 'imagemirror' ]}
+
+
 - name: deploy bootstrap MV
 
 - name: deploy master node 1/2/3
