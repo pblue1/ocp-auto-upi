@@ -11,7 +11,7 @@
     path: /opt/registry/{{ item }}
     state: directory
     recurse: yes
-    ownder: root
+    owner: root
     group: root
   loop:
     - auth
