@@ -6,7 +6,9 @@
 *.qcow2
 *.log
 lab
+ocp-upi-libvirt
 pull_secret
 *.swp
 *.ks
 roles/ocp-prepare/files/rhcos-metal.x86_64.raw.gz
+

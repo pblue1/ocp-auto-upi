@@ -5,6 +5,11 @@
     permanent: true
   loop:
     - dns
+
+- name: install bind package
+  yum:
+    name: bind
+    state: latest
     
 - name: copy 133.168.192.in and example.com.zone
   copy:
