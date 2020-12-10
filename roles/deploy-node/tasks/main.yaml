@@ -1,7 +1,7 @@
 - name: deploy a node
   shell: |
     virt-install --name {{ ocp_cluster_name }}-node-{{ item.num }} \
-    --disk {{ node_disk_size }} --ram {{ rhcos_master_node_memory }} --cpu host --vcpus {{ rhcos_master_node_cpu }} \
+    --disk size={{ node_disk_size }} --ram {{ rhcos_master_node_memory }} --cpu host --vcpus {{ rhcos_master_node_cpu }} \
     --os-type linux --os-variant rhel7 \
     --network network={{ ocp_vir_net }} --noreboot --noautoconsole \
     --pxe --mac={{ item.mac }}
